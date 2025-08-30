@@ -2,84 +2,698 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart_Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Semaphore 2025 - Igniting Innovation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        /* Enhanced Background Animations */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+            animation-duration: 8s;
+        }
+
+        .particle:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            top: 80%;
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 10s;
+        }
+
+        .particle:nth-child(3) {
+            width: 3px;
+            height: 3px;
+            top: 40%;
+            left: 70%;
+            animation-delay: 4s;
+            animation-duration: 7s;
+        }
+
+        .particle:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            top: 70%;
+            left: 10%;
+            animation-delay: 1s;
+            animation-duration: 9s;
+        }
+
+        .particle:nth-child(5) {
+            width: 4px;
+            height: 4px;
+            top: 30%;
+            left: 50%;
+            animation-delay: 3s;
+            animation-duration: 11s;
+        }
+
+        .particle:nth-child(6) {
+            width: 7px;
+            height: 7px;
+            top: 60%;
+            left: 30%;
+            animation-delay: 5s;
+            animation-duration: 6s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            25% {
+                transform: translateY(-20px) translateX(10px) rotate(90deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-40px) translateX(-5px) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: translateY(-20px) translateX(-15px) rotate(270deg);
+                opacity: 0.9;
+            }
+        }
+
+        /* Geometric Shapes Animation */
+        .geometric-shape {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: rotate 20s linear infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            right: 10%;
+            border-radius: 50%;
+            border-color: rgba(236, 72, 153, 0.2);
+            animation-duration: 25s;
+        }
+
+        .shape-2 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 15%;
+            border-color: rgba(34, 197, 94, 0.2);
+            animation-duration: 30s;
+            animation-direction: reverse;
+        }
+
+        .shape-3 {
+            width: 120px;
+            height: 120px;
+            top: 50%;
+            right: 30%;
+            border-radius: 50%;
+            border-color: rgba(59, 130, 246, 0.2);
+            animation-duration: 35s;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.2);
+            }
+
+            to {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        /* Gradient Waves */
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                    rgba(236, 72, 153, 0.1) 0%,
+                    rgba(59, 130, 246, 0.1) 25%,
+                    rgba(34, 197, 94, 0.1) 50%,
+                    rgba(168, 85, 247, 0.1) 75%,
+                    rgba(236, 72, 153, 0.1) 100%);
+            animation: wave 15s ease-in-out infinite;
+            border-radius: 40%;
+        }
+
+        .wave-1 {
+            top: -50%;
+            left: -50%;
+            animation-delay: 0s;
+        }
+
+        .wave-2 {
+            top: -30%;
+            right: -50%;
+            animation-delay: 5s;
+            animation-duration: 20s;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.1);
+            }
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -2;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom,
+                    transparent,
+                    rgba(34, 197, 94, 0.8),
+                    rgba(34, 197, 94, 0.4),
+                    transparent);
+            animation: matrix-fall linear infinite;
+        }
+
+        @keyframes matrix-fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Pulse Rings */
+        .pulse-ring {
+            position: absolute;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            animation: pulse-ring 4s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        .pulse-ring-1 {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .pulse-ring-2 {
+            width: 300px;
+            height: 300px;
+            bottom: 30%;
+            right: 20%;
+            animation-delay: 2s;
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.33);
+                opacity: 1;
+            }
+
+            80%,
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Original Gradient Animations */
+        .animate-gradient {
+            background-size: 300% 300%;
+            animation: gradientMove 6s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Enhanced Blobs */
+        .animate-blob {
+            animation: blob 20s infinite;
+        }
+
+        @keyframes blob {
+
+            0%,
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        /* Fade Up */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        /* Parallax Effect */
+        .parallax-bg {
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        /* Glowing Orbs */
+        .glowing-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: glow 8s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 150px;
+            height: 150px;
+            top: 15%;
+            right: 25%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 25%;
+            left: 30%;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, transparent 70%);
+            animation-delay: 4s;
+        }
+
+        .orb-3 {
+            width: 120px;
+            height: 120px;
+            top: 45%;
+            left: 10%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+            animation-delay: 2s;
+        }
+
+        @keyframes glow {
+            from {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            to {
+                transform: scale(1.2) rotate(360deg);
+                opacity: 0.9;
+            }
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-black text-white font-sans overflow-x-hidden relative">
 
-    <header>
-        <h1>Cart Page</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Shop</a>
-            <a href="#">Contact</a>
-            <a href="#">Sign In</a>
+    <!-- Enhanced Animated Background -->
+    <div class="animated-bg">
+        <!-- Base gradient background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#1a1a3e] via-[#0f0f23] to-black"></div>
+
+        <!-- Matrix Rain Effect -->
+        <div class="matrix-rain" id="matrixRain"></div>
+
+        <!-- Gradient Waves -->
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+
+        <!-- Glowing Orbs -->
+        <div class="glowing-orb orb-1"></div>
+        <div class="glowing-orb orb-2"></div>
+        <div class="glowing-orb orb-3"></div>
+
+        <!-- Pulse Rings -->
+        <div class="pulse-ring pulse-ring-1"></div>
+        <div class="pulse-ring pulse-ring-2"></div>
+
+        <!-- Geometric Shapes -->
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+
+        <!-- Floating Particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+
+        <!-- Original Blobs -->
+        <div
+            class="absolute top-20 left-20 w-96 h-96 bg-pink-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-blob parallax-bg">
+        </div>
+        <div
+            class="absolute top-40 right-20 w-96 h-96 bg-cyan-400/20 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000 parallax-bg">
+        </div>
+        <div
+            class="absolute bottom-20 left-1/2 w-96 h-96 bg-green-400/20 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000 parallax-bg">
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <header
+        class="fixed top-0 left-0 w-full bg-black/60 backdrop-blur-lg z-50 shadow-lg border-b border-white/10 transition-all">
+        <nav class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+            <h1
+                class="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-pink-500 via-cyan-400 to-green-400 bg-clip-text text-transparent tracking-wide">
+                Semaphore 2025
+            </h1>
+            <ul class="hidden md:flex space-x-6 text-base md:text-lg font-medium text-white/80">
+                <li><a href="#home" class="hover:text-cyan-400 transition">Home</a></li>
+                <li><a href="#about" class="hover:text-pink-400 transition">About</a></li>
+                <li><a href="#samca" class="hover:text-purple-400 transition">SAMCA</a></li>
+                <li><a href="#contact" class="hover:text-blue-400 transition">Contact</a></li>
+            </ul>
+            <button class="md:hidden p-2 border border-white/20 rounded-lg">☰</button>
         </nav>
     </header>
 
-    <main>
-        <div class="product_container">
-            <div class="img_container">
-                <div class="slider">
-                    <img src="images/product_1.jpg" alt="Product Image1">
-                    <img src="images/product_2.jpg" alt="Product Image2">
-                    <img src="images/product_3.jpg" alt="Product Image3">
-                    <img src="images/product_4.jpg" alt="Product Image4">
-                </div>
-                <button class="slider-btn prev" onclick="prevSlide()">&#10094;</button>
-                <button class="slider-btn next" onclick="nextSlide()">&#10095;</button>
+    <!-- Hero / Home -->
+    <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative z-10">
+        <p class="text-cyan-400 font-semibold text-lg md:text-xl opacity-0 animate-fadeInUp [animation-delay:500ms]">
+            🚀 SAMCA Association Presents
+        </p>
+        <h1
+            class="text-5xl md:text-7xl lg:text-8xl font-extrabold mt-4 bg-gradient-to-r from-pink-500 via-cyan-400 to-green-400 bg-clip-text text-transparent animate-gradient">
+            SEMAPHORE
+        </h1>
+        <h2 class="text-2xl md:text-3xl font-bold mt-4 text-white opacity-0 animate-fadeInUp [animation-delay:800ms]">
+            Igniting Innovation
+        </h2>
+        <p class="mt-6 max-w-2xl mx-auto text-gray-300 text-lg opacity-0 animate-fadeInUp [animation-delay:1200ms]">
+            The ultimate convergence of technology, creativity, and innovation. Join us for an extraordinary journey of
+            discovery, competition, and collaboration that will reshape the future of student excellence.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="mt-8 flex flex-wrap gap-6 justify-center opacity-0 animate-fadeInUp [animation-delay:1500ms]">
+            <a href="#register"
+                class="px-8 py-3 bg-gradient-to-r from-pink-500 to-cyan-400 rounded-full font-bold shadow-lg hover:scale-105 transition transform">
+                Register Now
+            </a>
+            <a href="#about"
+                class="px-8 py-3 border border-white/30 rounded-full font-bold hover:bg-white/10 transition">
+                Explore Events
+            </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-16 flex flex-wrap justify-center gap-8 opacity-0 animate-fadeInUp [animation-delay:1800ms]">
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl text-center shadow-lg hover:scale-105 transition">
+                <p
+                    class="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">
+                    500+</p>
+                <p class="text-gray-300 mt-2">Participants</p>
             </div>
-            <div class="product_info">
-                <h1>Boult X Mustang</h1>
-                <p class="description">Boult X Mustang Newly Launched Torq TWS Earbuds with 60H Playtime, App Support, 4
-                    Mics ENC, 45ms Low Latency, 13mm Driver, Breathing LEDs, Touch Control, Made in India, IPX5 Ear buds
-                    Wireless (Yellow).</p>
-                <p class="price">₹1,799</p>
-                <button class="add_to_cart">Add to Cart</button>
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl text-center shadow-lg hover:scale-105 transition">
+                <p
+                    class="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">
+                    25+</p>
+                <p class="text-gray-300 mt-2">Events</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl text-center shadow-lg hover:scale-105 transition">
+                <p
+                    class="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">
+                    ₹50k+</p>
+                <p class="text-gray-300 mt-2">Prize Pool</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl text-center shadow-lg hover:scale-105 transition">
+                <p
+                    class="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">
+                    2</p>
+                <p class="text-gray-300 mt-2">Days</p>
             </div>
         </div>
-    </main>
 
-    <section class="reviews">
-        <h2>Customer Reviews</h2>
-        <div class="review">★★★★★ - Amazing sound quality and great battery life!</div>
-        <div class="review">★★★★☆ - Stylish design, but the case feels a bit bulky.</div>
-        <div class="review">★★★★★ - Love the deep bass and clear vocals, perfect for music lovers.</div>
-        <div class="review">★★★☆☆ - Good overall, but the touch controls could be more responsive.</div>
+        <!-- Scroll Indicator -->
+        <div
+            class="absolute bottom-6 left-1/2 -translate-x-1/2 text-cyan-400 text-sm flex flex-col items-center gap-2 animate-bounce">
+            <span>Scroll to explore</span>
+            <div class="w-5 h-5 border-b-2 border-r-2 border-cyan-400 rotate-45"></div>
+        </div>
     </section>
 
+    <!-- About -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-24 text-center relative z-10">
+        <h2
+            class="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            About Semaphore
+        </h2>
+        <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-16 leading-relaxed">
+            Semaphore is the annual technical festival organized by SAMCA. It is a platform where students
+            showcase their talents in technology, creativity, and innovation. With a unique theme every year,
+            it inspires participants to break barriers and go <span class="text-purple-400 font-semibold">Beyond
+                Boundaries</span>.
+        </p>
 
-    <footer>
-        <p>&copy; 2025 MOTIONCUT...</p>
+        <div class="grid md:grid-cols-3 gap-10">
+            <div
+                class="bg-gradient-to-br from-pink-500/10 to-pink-600/5 p-8 rounded-2xl shadow-lg hover:scale-105 hover:shadow-pink-500/20 transition">
+                <h3 class="text-2xl font-semibold text-pink-400 mb-3">Purpose</h3>
+                <p class="text-gray-300">Encourage students to innovate, experiment, and excel in modern technology.</p>
+            </div>
+            <div
+                class="bg-gradient-to-br from-purple-500/10 to-purple-600/5 p-8 rounded-2xl shadow-lg hover:scale-105 hover:shadow-purple-500/20 transition">
+                <h3 class="text-2xl font-semibold text-purple-400 mb-3">Goals</h3>
+                <p class="text-gray-300">Provide opportunities for students to collaborate, compete, and create.</p>
+            </div>
+            <div
+                class="bg-gradient-to-br from-blue-500/10 to-blue-600/5 p-8 rounded-2xl shadow-lg hover:scale-105 hover:shadow-blue-500/20 transition">
+                <h3 class="text-2xl font-semibold text-blue-400 mb-3">Theme</h3>
+                <p class="text-gray-300">Semaphore 2025 embraces the theme of <strong>"Beyond Boundaries"</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAMCA Team -->
+    <section id="samca" class="bg-gradient-to-r from-black via-gray-900 to-black py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2
+                class="text-4xl md:text-5xl font-bold mb-14 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
+                SAMCA Core Team
+            </h2>
+            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+                <div
+                    class="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:scale-105 transition hover:shadow-pink-500/20">
+                    <img src="c:\Users\systems\Pictures\Feedback\IMG_0619-1.JPG" alt="President"
+                        class="mx-auto rounded-full border-4 border-pink-500 mb-5" />
+                    <h3 class="text-xl font-semibold">Alex Johnson</h3>
+                    <p class="text-pink-400 font-medium">President</p>
+                    <p class="text-gray-300 text-sm mt-3">📧 alex@samca.org<br>📞 +91 98765 43210</p>
+                </div>
+                <div
+                    class="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:scale-105 transition hover:shadow-purple-500/20">
+                    <img src="c:\Users\systems\Pictures\Feedback\IMG_0619-1.JPG" alt="Vice President"
+                        class="mx-auto rounded-full border-4 border-purple-500 mb-5" />
+                    <h3 class="text-xl font-semibold">Sophia Lee</h3>
+                    <p class="text-purple-400 font-medium">Vice President</p>
+                    <p class="text-gray-300 text-sm mt-3">📧 sophia@samca.org<br>📞 +91 87654 32109</p>
+                </div>
+                <div
+                    class="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:scale-105 transition hover:shadow-blue-500/20">
+                    <img src="c:\Users\systems\Pictures\Feedback\IMG_0619-1.JPG" alt="Secretary"
+                        class="mx-auto rounded-full border-4 border-blue-500 mb-5" />
+                    <h3 class="text-xl font-semibold">Rahul Mehta</h3>
+                    <p class="text-blue-400 font-medium">Secretary</p>
+                    <p class="text-gray-300 text-sm mt-3">📧 rahul@samca.org<br>📞 +91 76543 21098</p>
+                </div>
+                <div
+                    class="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:scale-105 transition hover:shadow-green-500/20">
+                    <img src="c:\Users\systems\Pictures\Feedback\IMG_0619-1.JPG" alt="Treasurer"
+                        class="mx-auto rounded-full border-4 border-green-500 mb-5" />
+                    <h3 class="text-xl font-semibold">Emma Davis</h3>
+                    <p class="text-green-400 font-medium">Treasurer</p>
+                    <p class="text-gray-300 text-sm mt-3">📧 emma@samca.org<br>📞 +91 65432 10987</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact"
+        class="bg-black/60 backdrop-blur-lg text-center py-8 mt-10 border-t border-gray-800 relative z-10">
+        <p class="text-gray-400 text-sm">© 2025 Semaphore | SAMCA Association. All rights reserved.</p>
     </footer>
 
+    <!-- Background Animation Scripts -->
     <script>
-        let index = 0;
-        const images = document.querySelector(".slider");
-        const totalImages = images.children.length;
+        // Matrix Rain Effect
+        function createMatrixRain() {
+            const matrixContainer = document.getElementById('matrixRain');
+            const columnCount = Math.floor(window.innerWidth / 20);
 
-        function updateSlider() {
-            images.style.transform = `translateX(${-index * 100}%)`;
+            for (let i = 0; i < columnCount; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = (i * 20) + 'px';
+                column.style.animationDelay = Math.random() * 5 + 's';
+                column.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                matrixContainer.appendChild(column);
+            }
         }
 
-        function nextSlide() {
-            index = (index + 1) % totalImages;
-            updateSlider();
+        // Parallax Effect
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax-bg');
+
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.3 + (index * 0.1);
+                element.style.transform = `translate3d(0, ${scrolled * speed}px, 0)`;
+            });
         }
 
-        function prevSlide() {
-            index = (index - 1 + totalImages) % totalImages;
-            updateSlider();
+        // Mouse Movement Effect
+        function handleMouseMove(e) {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach((particle, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (mouseX - 0.5) * speed * 50;
+                const y = (mouseY - 0.5) * speed * 50;
+                particle.style.transform += ` translate(${x}px, ${y}px)`;
+            });
+
+            const orbs = document.querySelectorAll('.glowing-orb');
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 0.3;
+                const x = (mouseX - 0.5) * speed * 30;
+                const y = (mouseY - 0.5) * speed * 30;
+                orb.style.transform += ` translate(${x}px, ${y}px)`;
+            });
         }
 
-        // Auto-slide function every 5 seconds
-        setInterval(nextSlide, 5000);
+        // Throttle function for performance
+        function throttle(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            createMatrixRain();
+
+            // Add event listeners
+            window.addEventListener('scroll', throttle(updateParallax, 10));
+            document.addEventListener('mousemove', throttle(handleMouseMove, 50));
+
+            // Performance optimization
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (prefersReducedMotion.matches) {
+                document.body.style.setProperty('--animation-duration', '0s');
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     </script>
-</body>
 
+</body>
 
 </html>
