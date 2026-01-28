@@ -1,644 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth antialiased">
 
-                                                     column.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chain Reaction Game</title>
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Contact Chakravyuha 2K26 - The Ultimate Tech Festival Experience">
+    <title>Contact Chakravyuha 2K26 | Cosmic Connection Hub</title>
+
+    <!-- Manifest for PWA -->
+    <link rel="manifest"
+        href="data:application/manifest+json,{&quot;name&quot;:&quot;Chakravyuha 2K26&quot;,&quot;short_name&quot;:&quot;Chakravyuha&quot;,&quot;description&quot;:&quot;Contact Us&quot;,&quot;start_url&quot;:&quot;/&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#0f172a&quot;,&quot;theme_color&quot;:&quot;#00f5ff&quot;}">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
+    <!-- Tailwind CSS v3.4 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <meta name="theme-color" content="#7C3AED">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
+                        display: ['Orbitron', 'monospace'],
+                    },
+                    colors: {
+                        cosmic: {
+                            dark: '#0f172a',
+                            deeper: '#050a14',
+                        },
+                        neon: {
+                            teal: '#00f5ff',
+                            cyan: '#00d4aa',
+                            crimson: '#ff3b5f',
+                            gold: '#ffd700',
+                        }
+                    },
+                    backgroundImage: {
+                        'cosmic-vortex': 'radial-gradient(circle at 20% 80%, rgba(0, 245, 255, 0.15), transparent 60%), radial-gradient(circle at 80% 20%, rgba(255, 59, 95, 0.1), transparent 60%)',
+                        'cosmic-grid': 'linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px)',
+                    },
+                    animation: {
+                        'labyrinth-float': 'labyrinthFloat 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'text-shimmer': 'textShimmer 3s ease-in-out infinite',
+                        'rotate-slow': 'rotateSlow 20s linear infinite',
+                        'bounce-elastic': 'bounceElastic 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                        'spin-neon': 'spinNeon 1.5s linear infinite',
+                    },
+                    keyframes: {
+                        labyrinthFloat: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(5deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(0, 245, 255, 0.5)' },
+                            '50%': { boxShadow: '0 0 40px rgba(0, 245, 255, 0.8)' },
+                        },
+                        textShimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        rotateSlow: {
+                            'from': { transform: 'rotate(0deg)' },
+                            'to': { transform: 'rotate(360deg)' },
+                        },
+                        bounceElastic: {
+                            '0%': { transform: 'scale(0.8)' },
+                            '50%': { transform: 'scale(1.1)' },
+                            '100%': { transform: 'scale(1)' },
+                        },
+                        spinNeon: {
+                            'from': { transform: 'rotate(0deg)' },
+                            'to': { transform: 'rotate(360deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP 3.12+ with ScrollTrigger & TextPlugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+
+    <!-- Three.js for particle effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 245, 255, 0.3) rgba(15, 23, 42, 0.5);
         }
-        
+
+        *::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background: rgba(0, 245, 255, 0.3);
+            border-radius: 4px;
+        }
+
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 30%, #0c0a1a 100%);
+            background-attachment: fixed;
+            color: #f0f9ff;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(0, 245, 255, 0.08), transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(255, 59, 95, 0.06), transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 212, 170, 0.04), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle-canvas {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        .section {
             min-height: 100vh;
-            overflow: hidden;
-            user-select: none;
+            width: 100%;
+            position: relative;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .glass {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #00f5ff, #00d4aa, #ff3b5f);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+            animation: text-shimmer 3s ease-in-out infinite;
+            text-align: center;
+            line-height: 1.2;
         }
-        
-        .glass-light {
-            background: rgba(226, 232, 240, 0.1);
+
+        .glow-box {
+            background: rgba(0, 245, 255, 0.05);
+            border: 1px solid rgba(0, 245, 255, 0.2);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(148, 163, 184, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 245, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1);
         }
-        
-        #gameCanvas {
-            cursor: crosshair;
-            border-radius: 16px;
-            box-shadow: 0 0 60px rgba(124, 58, 237, 0.3);
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            backdrop-filter: blur(20px);
+            color: #f0f9ff;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
         }
-        
-        .btn {
-            background: linear-gradient(135deg, #7C3AED, #06B6D4);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
+
+        .input-field::placeholder {
+            color: rgba(241, 245, 249, 0.4);
+        }
+
+        .input-field:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00f5ff;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #00f5ff, #00d4aa);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 0.875rem 2rem;
+            border-radius: 0.75rem;
             border: none;
             cursor: pointer;
-            font-weight: 600;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
         }
-        
-        .btn:hover {
+
+        .button-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(124, 58, 237, 0.6);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.6), 0 10px 30px rgba(0, 245, 255, 0.2);
         }
-        
-        .btn:active {
+
+        .button-primary:active {
             transform: translateY(0);
         }
-        
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
+
+        .error-text {
+            color: #ff3b5f;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
-        
-        .pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+        .error-text.show {
+            opacity: 1;
         }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+        .input-field.error {
+            border-color: #ff3b5f;
+            background: rgba(255, 59, 95, 0.05);
         }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
+
+        .char-counter {
+            font-size: 0.75rem;
+            color: rgba(241, 245, 249, 0.6);
+            margin-top: 0.25rem;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        .level-complete {
-            animation: levelComplete 1s ease-out;
-        }
-        
-        @keyframes levelComplete {
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
-            50% { transform: scale(1.2) rotate(10deg); }
-            100% { transform: scale(1) rotate(0); opacity: 1; }
-        }
-        
-        .combo-text {
+
+        .success-modal {
             position: fixed;
-            font-size: 48px;
-            font-weight: bold;
-            color: #FCD34D;
-            text-shadow: 0 0 20px #F97316;
-            pointer-events: none;
-            z-index: 1000;
-            animation: comboAnim 1s ease-out forwards;
-        }
-        
-        @keyframes comboAnim {
-            0% { transform: scale(0) translateY(0); opacity: 1; }
-            50% { transform: scale(1.5) translateY(-20px); }
-            100% { transform: scale(1) translateY(-40px); opacity: 0; }
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background: rgba(148, 163, 184, 0.2);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #7C3AED, #06B6D4);
-            transition: width 0.3s ease;
-            box-shadow: 0 0 10px rgba(124, 58, 237, 0.8);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        .success-modal.show {
+            display: flex;
+        }
+
+        .success-content {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 27, 75, 0.9));
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 245, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #00f5ff, #00d4aa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.4);
+        }
+
+        .success-modal h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.875rem;
+            margin-bottom: 0.5rem;
+            color: #00f5ff;
+        }
+
+        .success-modal p {
+            color: rgba(241, 245, 249, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .button-secondary {
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            color: #00f5ff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .button-secondary:hover {
+            background: rgba(0, 245, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+        }
+
+        .contact-card {
+            background: rgba(0, 245, 255, 0.05);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            padding: 2rem 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .contact-card:hover {
+            background: rgba(0, 245, 255, 0.1);
+            border-color: rgba(0, 245, 255, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.15);
+        }
+
+        .contact-card h3 {
+            font-family: 'Orbitron', monospace;
+            color: #00f5ff;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .contact-card p {
+            color: rgba(241, 245, 249, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: rgba(241, 245, 249, 0.8);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-row {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 245, 255, 0.2);
+            border-top-color: #00f5ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Floating effect */
+        .float-card {
+            animation: labyrinth-float 6s ease-in-out infinite;
+        }
+
+        /* Tab accessibility */
+        :focus-visible {
+            outline: 2px solid #00f5ff;
+            outline-offset: 2px;
+        }
+
+        /* Fade in effect */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <div class="glass fixed top-0 left-0 right-0 z-50 px-4 py-3">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 text-white">
-            <div class="flex items-center gap-6">
-                <div class="text-xl font-bold">
-                    Score: <span id="score" class="text-cyan-400">0</span>
+    <!-- Cosmic background -->
+    <div class="cosmic-bg"></div>
+
+    <!-- Canvas for Three.js particles -->
+    <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
+    <!-- Main content wrapper -->
+    <div class="content-wrapper">
+        <!-- Hero Section -->
+        <section class="section hero-section">
+            <div class="w-full max-w-5xl mx-auto text-center">
+                <h1 class="hero-title mb-6">
+                    Contact<br>Chakravyuha HQ
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl mx-auto">
+                    Pierce the digital veil. Connect with the cosmic collective organizing the most mind-bending tech
+                    festival of the century.
+                </p>
+
+                <!-- Contact cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-12">
+                    <div class="contact-card float-card" style="animation-delay: 0s;">
+                        <h3>📧 Email</h3>
+                        <p>contact@chakravyuha.in</p>
+                    </div>
+                    <div class="contact-card float-card" style="animation-delay: 0.2s;">
+                        <h3>💬 Discord</h3>
+                        <p>Join our server</p>
+                    </div>
+                    <div class="contact-card float-card" style="animation-delay: 0.4s;">
+                        <h3>📱 WhatsApp</h3>
+                        <p>+91 XXXXX XXXXX</p>
+                    </div>
                 </div>
-                <div class="text-lg">
-                    Level: <span id="level" class="text-purple-400">1</span>
-                </div>
-                <div class="text-lg">
-                    ⭕ <span id="clicks">5</span>/5
-                </div>
-                <div class="text-lg hidden sm:block">
-                    Combo: <span id="combo" class="text-yellow-400">x1</span>
-                </div>
-            </div>
-            <div class="flex items-center gap-4">
-                <div class="text-sm text-gray-300">
-                    High: <span id="highScore">0</span>
-                </div>
-                <button id="pauseBtn" class="glass-light px-3 py-1 rounded-lg text-sm hover:bg-opacity-20 transition">
-                    ⏸️
+
+                <!-- CTA Button -->
+                <button id="ctaButton" class="button-primary mt-12 text-lg" aria-label="Scroll to contact form">
+                    Launch Transmission ↓
                 </button>
-                <button id="fullscreenBtn" class="glass-light px-3 py-1 rounded-lg text-sm hover:bg-opacity-20 transition">
-                    ⛶
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="section form-section relative">
+            <div class="w-full max-w-2xl mx-auto">
+                <div class="glow-box p-8 md:p-10 rounded-2xl">
+                    <h2 class="hero-title text-3xl md:text-4xl mb-2">
+                        Transmission Protocol
+                    </h2>
+                    <p class="text-gray-300 mb-8 text-center">
+                        Submit your message through the cosmic network
+                    </p>
+
+                    <form id="contactForm" class="space-y-6">
+                        <!-- Name & Email Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" class="input-field w-full"
+                                    placeholder="Your cosmic identity" required>
+                                <div class="error-text"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" class="input-field w-full"
+                                    placeholder="your@email.com" required>
+                                <div class="error-text"></div>
+                            </div>
+                        </div>
+
+                        <!-- College & Phone Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="college">College/Organization *</label>
+                                <input type="text" id="college" name="college" class="input-field w-full"
+                                    placeholder="Your institution" required>
+                                <div class="error-text"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone *</label>
+                                <input type="tel" id="phone" name="phone" class="input-field w-full"
+                                    placeholder="+91 XXXXX XXXXX" required>
+                                <div class="error-text"></div>
+                            </div>
+                        </div>
+
+                        <!-- Event Interest & Discord Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="event">Event Interest *</label>
+                                <select id="event" name="event" class="input-field w-full" required>
+                                    <option value="">Select an event...</option>
+                                    <option value="coding">Coding Competition</option>
+                                    <option value="robotics">Robotics Challenge</option>
+                                    <option value="design">Design Sprint</option>
+                                    <option value="hackathon">Hackathon</option>
+                                    <option value="workshop">Workshops</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div class="error-text"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="discord">Discord Handle</label>
+                                <input type="text" id="discord" name="discord" class="input-field w-full"
+                                    placeholder="@username#1234">
+                                <div class="error-text"></div>
+                            </div>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="form-group full">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" class="input-field w-full"
+                                placeholder="Your message (max 500 characters)" rows="5" maxlength="500"
+                                required></textarea>
+                            <div class="char-counter"><span id="charCount">0</span>/500</div>
+                            <div class="error-text"></div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submitBtn" class="button-primary w-full py-3 text-lg mt-8"
+                            aria-label="Submit contact form">
+                            Transmit Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section class="section info-section">
+            <div class="w-full max-w-3xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glow-box p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold text-neon-teal mb-4">📍 Location</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Chakravyuha 2K26 Festival<br>
+                            College of Engineering, Mysuru<br>
+                            Mysuru, Karnataka, India<br>
+                            📅 Coming Soon
+                        </p>
+                    </div>
+                    <div class="glow-box p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold text-neon-teal mb-4">⏰ Response Time</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            We typically respond within 24 hours during festival season. For urgent inquiries, reach out
+                            on Discord or WhatsApp for faster response.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="success-modal" role="dialog" aria-labelledby="successTitle" aria-hidden="true">
+        <div class="success-content">
+            <div class="checkmark">✓</div>
+            <h2 id="successTitle">Transmission Received!</h2>
+            <p>
+                Your message has been successfully transmitted to Chakravyuha HQ. We'll get back to you soon with cosmic
+                greetings.
+            </p>
+            <div class="button-group">
+                <button class="button-secondary" onclick="copyToClipboard('contact@chakravyuha.in')">
+                    📧 Copy Email
+                </button>
+                <button class="button-secondary" onclick="window.open('https://discord.gg/chakravyuha', '_blank')">
+                    💬 Discord Invite
+                </button>
+                <button class="button-secondary" onclick="closeModal()">
+                    ✕ Close
                 </button>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-2">
-            <div class="progress-bar">
-                <div id="progressBar" class="progress-fill" style="width: 0%"></div>
-            </div>
-        </div>
     </div>
 
-    <!-- Game Canvas -->
-    <div class="flex items-center justify-center" style="height: 100vh; padding-top: 100px; padding-bottom: 80px;">
-        <canvas id="gameCanvas" class="fade-in max-w-full"></canvas>
-    </div>
-
-    <!-- Footer -->
-    <div class="glass fixed bottom-0 left-0 right-0 z-50 px-4 py-4">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-4">
-            <button id="restartBtn" class="btn">🔄 Restart</button>
-            <button id="nextLevelBtn" class="btn" disabled>▶️ Next Level</button>
-        </div>
-    </div>
-
-    <!-- Level Complete Modal -->
-    <div id="levelCompleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" style="backdrop-filter: blur(10px);">
-        <div class="glass p-8 rounded-2xl text-center text-white level-complete max-w-md mx-4">
-            <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
-                Level Complete!
-            </h2>
-            <div class="text-6xl mb-4">🎉</div>
-            <p class="text-2xl mb-2">Score: <span id="modalScore" class="text-cyan-400">0</span></p>
-            <p class="text-xl mb-6">Elements Triggered: <span id="modalElements" class="text-purple-400">0</span></p>
-            <button id="modalNextBtn" class="btn">Continue ▶️</button>
-        </div>
-    </div>
-
-    <!-- Game Over Modal -->
-    <div id="gameOverModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" style="backdrop-filter: blur(10px);">
-        <div class="glass p-8 rounded-2xl text-center text-white level-complete max-w-md mx-4">
-            <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
-                Game Over
-            </h2>
-            <div class="text-6xl mb-4">💥</div>
-            <p class="text-2xl mb-2">Final Score: <span id="finalScore" class="text-cyan-400">0</span></p>
-            <p class="text-xl mb-2">Level Reached: <span id="finalLevel" class="text-purple-400">1</span></p>
-            <p class="text-lg mb-6 text-gray-300">Not enough elements triggered!</p>
-            <button id="modalRestartBtn" class="btn">🔄 Restart Game</button>
-        </div>
-    </div>
-
+    <!-- Service Worker Registration for PWA -->
     <script>
-        // Audio Context for sound effects
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        
-        function playSound(type) {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            if (type === 'click') {
-                oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.1);
-            } else if (type === 'explosion') {
-                oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.2);
-                gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.2);
-            } else if (type === 'complete') {
-                oscillator.frequency.setValueAtTime(523, audioContext.currentTime);
-                oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1);
-                oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2);
-                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.4);
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+const CACHE_NAME = 'chakravyuha-v1';
+const urlsToCache = ['/', '/index.html'];
+
+self.addEventListener('install', event => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache).catch(() => {}))
+    );
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+    event.waitUntil(clients.claim());
+});
+
+self.addEventListener('fetch', event => {
+    if (event.request.method !== 'GET') return;
+    event.respondWith(
+        caches.match(event.request).then(response => {
+            return response || fetch(event.request).catch(() => {
+                return new Response('Offline - Cached version not available');
+            });
+        })
+    );
+});`;
+
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl, { scope: '/' }).catch(() => { });
+        }
+    </script>
+
+    <!-- Main Application Script -->
+    <script>
+        // ============================================
+        // THREE.JS PARTICLE SYSTEM
+        // ============================================
+        let scene, camera, renderer, particles;
+
+        function initParticles() {
+            const canvas = document.getElementById('particleCanvas');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            camera.position.z = 50;
+
+            // Create particle geometry
+            const particleCount = 500;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 200;
+                positions[i + 1] = (Math.random() - 0.5) * 200;
+                positions[i + 2] = (Math.random() - 0.5) * 200;
+
+                // Gradient: Teal to Cyan
+                if (Math.random() > 0.5) {
+                    colors[i] = 0; colors[i + 1] = 0.96; colors[i + 2] = 1; // Teal
+                } else {
+                    colors[i] = 0; colors[i + 1] = 0.83; colors[i + 2] = 0.67; // Cyan
+                }
             }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.5,
+                vertexColors: true,
+                sizeAttenuation: true,
+                opacity: 0.6,
+                transparent: true
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            animateParticles();
         }
 
-        // Game State
-        const game = {
-            canvas: document.getElementById('gameCanvas'),
-            ctx: null,
-            width: 0,
-            height: 0,
-            level: 1,
-            score: 0,
-            highScore: parseInt(localStorage.getItem('chainReactionHighScore')) || 0,
-            clicks: 5,
-            maxClicks: 5,
-            elements: [],
-            waves: [],
-            particles: [],
-            triggeredCount: 0,
-            combo: 1,
-            paused: false,
-            animationId: null
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+
+            if (particles) {
+                particles.rotation.x += 0.0001;
+                particles.rotation.y += 0.0002;
+
+                const positions = particles.geometry.attributes.position.array;
+                for (let i = 0; i < positions.length; i += 3) {
+                    positions[i] += (Math.random() - 0.5) * 0.2;
+                    positions[i + 1] += (Math.random() - 0.5) * 0.2;
+                    positions[i + 2] += (Math.random() - 0.5) * 0.2;
+                }
+                particles.geometry.attributes.position.needsUpdate = true;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        function resizeRenderer() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        // ============================================
+        // FORM VALIDATION & INTERACTION
+        // ============================================
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successModal = document.getElementById('successModal');
+        const charCountEl = document.getElementById('charCount');
+        const messageField = document.getElementById('message');
+
+        // Validation patterns
+        const validators = {
+            name: /^[a-zA-Z\s]{2,50}$/,
+            email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            college: /^[a-zA-Z0-9\s,]{3,100}$/,
+            phone: /^(\+91|0)?[6-9]\d{9}$/,
+            discord: /^[a-zA-Z0-9_]{3,32}(#\d{4})?$/,
+            message: /^.{10,500}$/
         };
 
-        // Initialize canvas
-        function initCanvas() {
-            const container = game.canvas.parentElement;
-            const maxWidth = Math.min(window.innerWidth - 40, 1200);
-            const maxHeight = window.innerHeight - 200;
-            
-            game.width = maxWidth;
-            game.height = Math.min(maxHeight, window.innerHeight * 0.9);
-            
-            game.canvas.width = game.width;
-            game.canvas.height = game.height;
-            game.ctx = game.canvas.getContext('2d');
-        }
+        // Character counter for message
+        messageField.addEventListener('input', () => {
+            charCountEl.textContent = messageField.value.length;
+        });
 
-        // Element class
-        class Element {
-            constructor(x, y, level) {
-                this.x = x;
-                this.y = y;
-                this.radius = 15 + Math.random() * 10;
-                this.triggered = false;
-                this.triggerTime = 0;
-                this.pulseOffset = Math.random() * Math.PI * 2;
-                this.speed = 1 + level * 0.2;
+        // Input focus effects - GSAP animation
+        document.querySelectorAll('.input-field').forEach(input => {
+            input.addEventListener('focus', () => {
+                gsap.to(input, {
+                    duration: 0.3,
+                    scale: 1.02,
+                    boxShadow: '0 0 30px rgba(0, 245, 255, 0.4)',
+                    ease: 'power2.out'
+                });
+            });
+
+            input.addEventListener('blur', () => {
+                gsap.to(input, {
+                    duration: 0.3,
+                    scale: 1,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Form validation
+        function validateField(fieldName, value) {
+            const field = form.querySelector(`[name="${fieldName}"]`);
+            const errorEl = field.nextElementSibling;
+            const pattern = validators[fieldName];
+
+            let isValid = true;
+            let errorMsg = '';
+
+            if (!value && field.required) {
+                isValid = false;
+                errorMsg = 'This field is required';
+            } else if (pattern && value && !pattern.test(value)) {
+                isValid = false;
+                errorMsg = `Invalid ${fieldName} format`;
             }
 
-            draw(ctx, time) {
-                if (this.triggered && time - this.triggerTime > 500) return;
-
-                ctx.save();
-                
-                if (!this.triggered) {
-                    // Pulsing effect
-                    const pulse = Math.sin(time * 0.003 + this.pulseOffset) * 0.3 + 0.7;
-                    const glowRadius = this.radius * (1 + pulse * 0.3);
-                    
-                    // Glow
-                    const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowRadius);
-                    gradient.addColorStop(0, 'rgba(6, 182, 212, 0.8)');
-                    gradient.addColorStop(0.5, 'rgba(6, 182, 212, 0.4)');
-                    gradient.addColorStop(1, 'rgba(6, 182, 212, 0)');
-                    
-                    ctx.fillStyle = gradient;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, glowRadius, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Core
-                    ctx.fillStyle = '#06B6D4';
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius * pulse, 0, Math.PI * 2);
-                    ctx.fill();
-                } else {
-                    // Explosion animation
-                    const progress = (time - this.triggerTime) / 500;
-                    const scale = 1 + progress * 0.5;
-                    const alpha = 1 - progress;
-                    
-                    const gradient = ctx.createRadialGradient(
-                        this.x, this.y, 0,
-                        this.x, this.y, this.radius * scale * 3
-                    );
-                    gradient.addColorStop(0, `rgba(252, 211, 77, ${alpha})`);
-                    gradient.addColorStop(0.5, `rgba(249, 115, 22, ${alpha * 0.7})`);
-                    gradient.addColorStop(1, `rgba(249, 115, 22, 0)`);
-                    
-                    ctx.fillStyle = gradient;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius * scale * 3, 0, Math.PI * 2);
-                    ctx.fill();
+            if (isValid) {
+                field.classList.remove('error');
+                if (errorEl && errorEl.classList.contains('error-text')) {
+                    errorEl.classList.remove('show');
                 }
-                
-                ctx.restore();
+            } else {
+                field.classList.add('error');
+                if (errorEl && errorEl.classList.contains('error-text')) {
+                    errorEl.textContent = errorMsg;
+                    errorEl.classList.add('show');
+                }
             }
 
-            trigger(time) {
-                if (this.triggered) return false;
-                this.triggered = true;
-                this.triggerTime = time;
-                playSound('explosion');
-                return true;
-            }
+            return isValid;
         }
 
-        // Wave class
-        class Wave {
-            constructor(x, y, speed) {
-                this.x = x;
-                this.y = y;
-                this.radius = 0;
-                this.maxRadius = Math.max(game.width, game.height) * 1.5;
-                this.speed = speed;
-                this.alpha = 1;
+        // Real-time validation
+        form.querySelectorAll('.input-field').forEach(field => {
+            field.addEventListener('blur', () => {
+                validateField(field.name, field.value);
+            });
+        });
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validate all fields
+            const formData = new FormData(form);
+            let allValid = true;
+
+            for (const [key, value] of formData.entries()) {
+                if (!validateField(key, value)) {
+                    allValid = false;
+                }
             }
 
-            update() {
-                this.radius += this.speed;
-                this.alpha = 1 - (this.radius / this.maxRadius);
-                return this.radius < this.maxRadius;
-            }
-
-            draw(ctx) {
-                ctx.save();
-                ctx.strokeStyle = `rgba(124, 58, 237, ${this.alpha * 0.6})`;
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.stroke();
-                
-                ctx.strokeStyle = `rgba(6, 182, 212, ${this.alpha * 0.4})`;
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius - 5, 0, Math.PI * 2);
-                ctx.stroke();
-                ctx.restore();
-            }
-
-            checkCollision(element) {
-                const dist = Math.hypot(element.x - this.x, element.y - this.y);
-                return dist <= this.radius + element.radius && dist >= this.radius - element.radius - 10;
-            }
-        }
-
-        // Particle class
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                const angle = Math.random() * Math.PI * 2;
-                const speed = 2 + Math.random() * 4;
-                this.vx = Math.cos(angle) * speed;
-                this.vy = Math.sin(angle) * speed;
-                this.life = 1;
-                this.decay = 0.015 + Math.random() * 0.015;
-                this.size = 2 + Math.random() * 4;
-                this.color = Math.random() > 0.5 ? '#FCD34D' : '#F97316';
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.vy += 0.1; // gravity
-                this.life -= this.decay;
-                return this.life > 0;
-            }
-
-            draw(ctx) {
-                ctx.save();
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.life;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        // Create particles
-        function createParticles(x, y, count = 60) {
-            for (let i = 0; i < count; i++) {
-                game.particles.push(new Particle(x, y));
-            }
-        }
-
-        // Initialize level
-        function initLevel() {
-            game.elements = [];
-            game.waves = [];
-            game.particles = [];
-            game.triggeredCount = 0;
-            game.clicks = game.maxClicks;
-            game.combo = 1;
-            
-            const elementCount = 20 + (game.level - 1) * 6;
-            const padding = 50;
-            
-            for (let i = 0; i < elementCount; i++) {
-                const x = padding + Math.random() * (game.width - padding * 2);
-                const y = padding + Math.random() * (game.height - padding * 2);
-                game.elements.push(new Element(x, y, game.level));
-            }
-            
-            updateUI();
-        }
-
-        // Update UI
-        function updateUI() {
-            document.getElementById('score').textContent = game.score;
-            document.getElementById('level').textContent = game.level;
-            document.getElementById('clicks').textContent = game.clicks;
-            document.getElementById('combo').textContent = `x${game.combo.toFixed(1)}`;
-            document.getElementById('highScore').textContent = game.highScore;
-            
-            const progress = (game.triggeredCount / game.elements.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-            
-            document.getElementById('nextLevelBtn').disabled = game.clicks > 0 || progress < 80;
-        }
-
-        // Show combo text
-        function showCombo(combo) {
-            const div = document.createElement('div');
-            div.className = 'combo-text';
-            div.textContent = `x${combo.toFixed(1)}`;
-            div.style.left = '50%';
-            div.style.top = '50%';
-            div.style.transform = 'translate(-50%, -50%)';
-            document.body.appendChild(div);
-            
-            setTimeout(() => div.remove(), 1000);
-        }
-
-        // Handle click/touch
-        function handleClick(e) {
-            if (game.paused || game.clicks <= 0) return;
-            
-            const rect = game.canvas.getBoundingClientRect();
-            const x = (e.clientX || e.touches[0].clientX) - rect.left;
-            const y = (e.clientY || e.touches[0].clientY) - rect.top;
-            
-            const scaleX = game.width / rect.width;
-            const scaleY = game.height / rect.height;
-            
-            const gameX = x * scaleX;
-            const gameY = y * scaleY;
-            
-            game.clicks--;
-            game.waves.push(new Wave(gameX, gameY, 3 + game.level * 0.5));
-            playSound('click');
-            updateUI();
-        }
-
-        // Game loop
-        function gameLoop(time) {
-            if (game.paused) {
-                game.animationId = requestAnimationFrame(gameLoop);
+            if (!allValid) {
                 return;
             }
-            
-            const ctx = game.ctx;
-            
-            // Clear canvas
-            ctx.clearRect(0, 0, game.width, game.height);
-            
-            // Update and draw waves
-            game.waves = game.waves.filter(wave => {
-                const alive = wave.update();
-                
-                // Check collisions with elements
-                game.elements.forEach(element => {
-                    if (!element.triggered && wave.checkCollision(element)) {
-                        if (element.trigger(time)) {
-                            game.triggeredCount++;
-                            game.combo = Math.min(5, 1 + game.triggeredCount * 0.15);
-                            game.score += Math.floor(100 * game.combo * game.level);
-                            
-                            createParticles(element.x, element.y);
-                            game.waves.push(new Wave(element.x, element.y, 2.5 + game.level * 0.4));
-                            
-                            if (game.triggeredCount % 5 === 0) {
-                                showCombo(game.combo);
-                            }
-                            
-                            updateUI();
-                        }
+
+            // Show loading state
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<span class="spinner"></span> Transmitting...';
+            submitBtn.disabled = true;
+
+            // Simulate API call
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Success animation
+                gsap.timeline()
+                    .to(form, { duration: 0.5, opacity: 0, scale: 0.95 }, 0)
+                    .to(form, { display: 'none' }, 0.5);
+
+                showSuccessModal();
+            } catch (error) {
+                console.error('Form submission error:', error);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // ============================================
+        // MODAL FUNCTIONS
+        // ============================================
+        function showSuccessModal() {
+            successModal.classList.add('show');
+            successModal.setAttribute('aria-hidden', 'false');
+
+            gsap.from('.success-content', {
+                duration: 0.6,
+                scale: 0.8,
+                opacity: 0,
+                ease: 'back.out(1.5)'
+            });
+
+            // Confetti effect
+            createConfetti();
+
+            // Auto-close
+            setTimeout(() => {
+                closeModal();
+            }, 5000);
+        }
+
+        function closeModal() {
+            gsap.to('.success-content', {
+                duration: 0.4,
+                scale: 0.8,
+                opacity: 0,
+                ease: 'back.in',
+                onComplete: () => {
+                    successModal.classList.remove('show');
+                    successModal.setAttribute('aria-hidden', 'true');
+                    location.reload();
+                }
+            });
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const original = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = original;
+                }, 2000);
+            });
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && successModal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // ============================================
+        // CONFETTI EFFECT
+        // ============================================
+        function createConfetti() {
+            const confettiCount = 50;
+            const confettiContainer = document.createElement('div');
+            confettiContainer.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1001;';
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.cssText = `
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    background: ${['#00f5ff', '#00d4aa', '#ff3b5f', '#ffd700'][Math.floor(Math.random() * 4)]};
+                    left: ${Math.random() * 100}%;
+                    top: 0;
+                    border-radius: 50%;
+                    pointer-events: none;
+                `;
+
+                confettiContainer.appendChild(confetti);
+
+                gsap.to(confetti, {
+                    duration: 2 + Math.random() * 1,
+                    y: window.innerHeight + 100,
+                    x: (Math.random() - 0.5) * 200,
+                    opacity: 0,
+                    rotation: Math.random() * 720,
+                    ease: 'power2.in'
+                });
+            }
+
+            document.body.appendChild(confettiContainer);
+            setTimeout(() => confettiContainer.remove(), 3500);
+        }
+
+        // ============================================
+        // SCROLL ANIMATIONS - GSAP
+        // ============================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero entrance animation
+        const tl = gsap.timeline();
+        tl.from('.hero-title', { duration: 1, opacity: 0, y: 50, ease: 'back.out(1.2)' })
+            .from('.contact-card', { duration: 0.8, opacity: 0, y: 30, stagger: 0.2, ease: 'power2.out' }, 0.3)
+            .from('#ctaButton', { duration: 0.8, opacity: 0, scale: 0.8, ease: 'back.out(1.2)' }, 0.5);
+
+        // Form section reveal
+        ScrollTrigger.create({
+            trigger: '.form-section',
+            onEnter: () => {
+                gsap.from('.glow-box', {
+                    duration: 1,
+                    y: 100,
+                    opacity: 0,
+                    ease: 'back.out(1.2)',
+                    scrollTrigger: {
+                        trigger: '.form-section',
+                        start: 'top center'
                     }
                 });
-                
-                if (alive) wave.draw(ctx);
-                return alive;
-            });
-            
-            // Update and draw particles
-            game.particles = game.particles.filter(particle => {
-                const alive = particle.update();
-                if (alive) particle.draw(ctx);
-                return alive;
-            });
-            
-            // Draw elements
-            game.elements.forEach(element => element.draw(ctx, time));
-            
-            // Check win/lose conditions
-            if (game.clicks === 0 && game.waves.length === 0) {
-                const progress = (game.triggeredCount / game.elements.length) * 100;
-                
-                if (progress >= 80) {
-                    setTimeout(() => showLevelComplete(), 500);
-                } else {
-                    setTimeout(() => showGameOver(), 500);
-                }
-                return;
             }
-            
-            // Update high score
-            if (game.score > game.highScore) {
-                game.highScore = game.score;
-                localStorage.setItem('chainReactionHighScore', game.highScore);
-                updateUI();
-            }
-            
-            game.animationId = requestAnimationFrame(gameLoop);
-        }
-
-        // Show level complete modal
-        function showLevelComplete() {
-            playSound('complete');
-            document.getElementById('modalScore').textContent = game.score;
-            document.getElementById('modalElements').textContent = game.triggeredCount;
-            document.getElementById('levelCompleteModal').classList.remove('hidden');
-        }
-
-        // Show game over modal
-        function showGameOver() {
-            document.getElementById('finalScore').textContent = game.score;
-            document.getElementById('finalLevel').textContent = game.level;
-            document.getElementById('gameOverModal').classList.remove('hidden');
-        }
-
-        // Next level
-        function nextLevel() {
-            document.getElementById('levelCompleteModal').classList.add('hidden');
-            game.level++;
-            if (game.level > 5) {
-                game.level = 1;
-                game.score = 0;
-            }
-            initLevel();
-            game.animationId = requestAnimationFrame(gameLoop);
-        }
-
-        // Restart game
-        function restartGame() {
-            document.getElementById('gameOverModal').classList.add('hidden');
-            game.level = 1;
-            game.score = 0;
-            initLevel();
-            game.animationId = requestAnimationFrame(gameLoop);
-        }
-
-        // Toggle pause
-        function togglePause() {
-            game.paused = !game.paused;
-            document.getElementById('pauseBtn').textContent = game.paused ? '▶️' : '⏸️';
-        }
-
-        // Toggle fullscreen
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
-        }
-
-        // Event listeners
-        game.canvas.addEventListener('click', handleClick);
-        game.canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            handleClick(e);
         });
 
-        document.getElementById('restartBtn').addEventListener('click', restartGame);
-        document.getElementById('nextLevelBtn').addEventListener('click', nextLevel);
-        document.getElementById('modalNextBtn').addEventListener('click', nextLevel);
-        document.getElementById('modalRestartBtn').addEventListener('click', restartGame);
-        document.getElementById('pauseBtn').addEventListener('click', togglePause);
-        document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+        // Input fields stagger reveal
+        ScrollTrigger.create({
+            trigger: '.form-section',
+            onEnter: () => {
+                gsap.from('.form-group', {
+                    duration: 0.8,
+                    x: -50,
+                    opacity: 0,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.form-section',
+                        start: 'top 60%'
+                    }
+                });
+            }
+        });
+
+        // Info section animation
+        ScrollTrigger.create({
+            trigger: '.info-section',
+            onEnter: () => {
+                gsap.from('.info-section .glow-box', {
+                    duration: 0.8,
+                    y: 50,
+                    opacity: 0,
+                    stagger: 0.2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.info-section',
+                        start: 'top center'
+                    }
+                });
+            }
+        });
+
+        // ============================================
+        // CTA BUTTON SCROLL BEHAVIOR
+        // ============================================
+        document.getElementById('ctaButton').addEventListener('click', () => {
+            gsap.to(window, {
+                duration: 1.5,
+                scrollTo: '.form-section',
+                ease: 'power2.inOut'
+            });
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        window.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+
+            // Scroll to top on refresh
+            ScrollTrigger.refresh();
+        });
 
         window.addEventListener('resize', () => {
-            initCanvas();
-            initLevel();
+            resizeRenderer();
+            ScrollTrigger.refresh();
         });
 
-        // Initialize and start
-        initCanvas();
-        initLevel();
-        game.animationId = requestAnimationFrame(gameLoop);
+        // Disable right-click context menu on production (optional, remove if needed)
+        // document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Page visibility to pause/resume animations
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                gsap.globalTimeline.pause();
+            } else {
+                gsap.globalTimeline.resume();
+            }
+        });
     </script>
 </body>
-    </html>
+
+</html>
